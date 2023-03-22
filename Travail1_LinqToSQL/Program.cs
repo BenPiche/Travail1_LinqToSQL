@@ -1,3 +1,4 @@
+//using System.Data.Linq;
 namespace Travail1_LinqToSQL
 {
     internal static class Program
