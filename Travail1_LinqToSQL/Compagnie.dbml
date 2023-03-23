@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CompagnieX" Class="CompagnieDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-LLUBEG3O\MSQLSERVEREXPRES;Initial Catalog=CompagnieX;Persist Security Info=True;User ID=Antony" SettingsObjectName="Travail1_LinqToSQL.Properties.Settings" SettingsPropertyName="CompagnieXConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Departements" Member="Departements">
+    <Type Name="Departements">
+      <Column Name="depCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Departements_Employes" Member="Employes" ThisKey="depCode" OtherKey="dep" Type="Employes" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employes" Member="Employes">
+    <Type Name="Employes">
+      <Column Name="nomFamille" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="prénom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="numTel" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="numEmp" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="état" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="gestionnaire" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="dep" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Departements_Employes" Member="Departements" ThisKey="dep" OtherKey="depCode" Type="Departements" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

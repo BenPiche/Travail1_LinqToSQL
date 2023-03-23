@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CompagnieX" Class="DataCompagnieXDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-LLUBEG3O\MSQLSERVEREXPRES;Initial Catalog=CompagnieX;Persist Security Info=True;User ID=Antony" SettingsObjectName="Travail1_LinqToSQL.Properties.Settings" SettingsPropertyName="CompagnieXConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CompagnieX" Class="CompagnieDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-LLUBEG3O\MSQLSERVEREXPRES;Initial Catalog=CompagnieX;Persist Security Info=True;User ID=Antony" SettingsObjectName="Travail1.Properties.Settings" SettingsPropertyName="CompagnieXConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Departements" Member="Departements">
     <Type Name="Departements">
       <Column Name="depCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />

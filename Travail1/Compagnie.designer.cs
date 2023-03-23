@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Travail1_LinqToSQL
+namespace Travail1
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
@@ -23,7 +23,7 @@ namespace Travail1_LinqToSQL
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="CompagnieX")]
-	public partial class DataCompagnieXDataContext : System.Data.Linq.DataContext
+	public partial class CompagnieDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -38,31 +38,31 @@ namespace Travail1_LinqToSQL
     partial void DeleteEmployes(Employes instance);
     #endregion
 		
-		public DataCompagnieXDataContext() : 
-				base(global::Travail1_LinqToSQL.Properties.Settings.Default.CompagnieXConnectionString, mappingSource)
+		public CompagnieDataContext() : 
+				base(global::Travail1.Properties.Settings.Default.CompagnieXConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataCompagnieXDataContext(string connection) : 
+		public CompagnieDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataCompagnieXDataContext(System.Data.IDbConnection connection) : 
+		public CompagnieDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataCompagnieXDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public CompagnieDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataCompagnieXDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public CompagnieDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();

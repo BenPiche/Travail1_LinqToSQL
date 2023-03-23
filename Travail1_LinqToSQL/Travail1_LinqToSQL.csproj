@@ -9,9 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="DataCompagnieX.dbml">
+    <None Update="Compagnie.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataCompagnieX.designer.cs</LastGenOutput>
+      <LastGenOutput>Compagnie.designer.cs</LastGenOutput>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DataCompagnieX.designer.cs">
+    <Compile Update="Compagnie.designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DataCompagnieX.dbml</DependentUpon>
+      <DependentUpon>Compagnie.dbml</DependentUpon>
     </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
