@@ -5,6 +5,8 @@ namespace Travail1_LinqToSQL
         public Form1()
         {
             InitializeComponent();
+
+          
         }
     }
 }
