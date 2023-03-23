@@ -19,6 +19,8 @@ namespace Travail1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: cette ligne de code charge les données dans la table 'dBDataSet.Departements'. Vous pouvez la déplacer ou la supprimer selon les besoins.
+            this.departementsTableAdapter1.Fill(this.dBDataSet.Departements);
             // TODO: cette ligne de code charge les données dans la table 'compagnieXDataSet.Dep_employe'. Vous pouvez la déplacer ou la supprimer selon les besoins.
             this.dep_employeTableAdapter.Fill(this.compagnieXDataSet.Dep_employe);
             // TODO: cette ligne de code charge les données dans la table 'compagnieXDataSet.Employes'. Vous pouvez la déplacer ou la supprimer selon les besoins.
