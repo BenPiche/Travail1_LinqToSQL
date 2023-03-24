@@ -62,20 +62,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compagnie.designer.cs">
+    <Compile Include="Accessor.cs" />
+    <Compile Include="CompagnieData.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Compagnie.dbml</DependentUpon>
+      <DependentUpon>CompagnieData.dbml</DependentUpon>
     </Compile>
     <Compile Include="CompagnieXDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CompagnieXDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -97,13 +93,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Compagnie.dbml">
+    <None Include="CompagnieData.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Compagnie.designer.cs</LastGenOutput>
+      <LastGenOutput>CompagnieData.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Compagnie.dbml.layout">
-      <DependentUpon>Compagnie.dbml</DependentUpon>
+    <None Include="CompagnieData.dbml.layout">
+      <DependentUpon>CompagnieData.dbml</DependentUpon>
     </None>
     <None Include="CompagnieXDataSet.xsc">
       <DependentUpon>CompagnieXDataSet.xsd</DependentUpon>
@@ -115,17 +111,6 @@
     </None>
     <None Include="CompagnieXDataSet.xss">
       <DependentUpon>CompagnieXDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DBDataSet.xsc">
-      <DependentUpon>DBDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DBDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DBDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DBDataSet.xss">
-      <DependentUpon>DBDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
