@@ -5,6 +5,7 @@
       <Column Name="depCode" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="nom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Departements_Employes" Member="Employes" ThisKey="depCode" OtherKey="dep" Type="Employes" />
+      <Association Name="Departements_Gestionnaires" Member="Gestionnaires" ThisKey="depCode" OtherKey="idDep" Type="Gestionnaires" />
     </Type>
   </Table>
   <Table Name="dbo.Employes" Member="Employes">
@@ -15,9 +16,17 @@
       <Column Name="email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="numEmp" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="état" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="gestionnaire" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="dep" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Employes_Gestionnaires" Member="Gestionnaires" ThisKey="numEmp" OtherKey="idEmploye" Type="Gestionnaires" />
       <Association Name="Departements_Employes" Member="Departements" ThisKey="dep" OtherKey="depCode" Type="Departements" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Gestionnaires" Member="Gestionnaires">
+    <Type Name="Gestionnaires">
+      <Column Name="idEmploye" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="idDep" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Departements_Gestionnaires" Member="Departements" ThisKey="idDep" OtherKey="depCode" Type="Departements" IsForeignKey="true" />
+      <Association Name="Employes_Gestionnaires" Member="Employes" ThisKey="idEmploye" OtherKey="numEmp" Type="Employes" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.listeEmployesTravail" Method="listeEmployesTravail">
@@ -36,5 +45,15 @@
     <ElementType Name="DepartementPopulaireResult">
       <Column Name="Nom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.modifierPrenomEmp" Method="modifierPrenomEmp">
+    <Parameter Name="numEmp" Type="System.Int32" DbType="Int" />
+    <Parameter Name="nouvPrenom" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.supprimerGestionnaire" Method="supprimerGestionnaire">
+    <Parameter Name="numEmp" Type="System.Int32" DbType="Int" />
+    <Parameter Name="codeDep" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

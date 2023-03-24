@@ -36,6 +36,9 @@ namespace Travail1Final
     partial void InsertEmployes(Employes instance);
     partial void UpdateEmployes(Employes instance);
     partial void DeleteEmployes(Employes instance);
+    partial void InsertGestionnaires(Gestionnaires instance);
+    partial void UpdateGestionnaires(Gestionnaires instance);
+    partial void DeleteGestionnaires(Gestionnaires instance);
     #endregion
 		
 		public DBDataContext() : 
@@ -84,6 +87,14 @@ namespace Travail1Final
 			}
 		}
 		
+		public System.Data.Linq.Table<Gestionnaires> Gestionnaires
+		{
+			get
+			{
+				return this.GetTable<Gestionnaires>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.listeEmployesTravail")]
 		public ISingleResult<listeEmployesTravailResult> listeEmployesTravail()
 		{
@@ -104,6 +115,20 @@ namespace Travail1Final
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<DepartementPopulaireResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.modifierPrenomEmp")]
+		public int modifierPrenomEmp([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> numEmp, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string nouvPrenom)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), numEmp, nouvPrenom);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.supprimerGestionnaire")]
+		public int supprimerGestionnaire([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> numEmp, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> codeDep)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), numEmp, codeDep);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Departements")]
@@ -118,6 +143,8 @@ namespace Travail1Final
 		
 		private EntitySet<Employes> _Employes;
 		
+		private EntitySet<Gestionnaires> _Gestionnaires;
+		
     #region Définitions de méthodes d'extensibilité
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -131,6 +158,7 @@ namespace Travail1Final
 		public Departements()
 		{
 			this._Employes = new EntitySet<Employes>(new Action<Employes>(this.attach_Employes), new Action<Employes>(this.detach_Employes));
+			this._Gestionnaires = new EntitySet<Gestionnaires>(new Action<Gestionnaires>(this.attach_Gestionnaires), new Action<Gestionnaires>(this.detach_Gestionnaires));
 			OnCreated();
 		}
 		
@@ -187,6 +215,19 @@ namespace Travail1Final
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Departements_Gestionnaires", Storage="_Gestionnaires", ThisKey="depCode", OtherKey="idDep")]
+		public EntitySet<Gestionnaires> Gestionnaires
+		{
+			get
+			{
+				return this._Gestionnaires;
+			}
+			set
+			{
+				this._Gestionnaires.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -218,6 +259,18 @@ namespace Travail1Final
 			this.SendPropertyChanging();
 			entity.Departements = null;
 		}
+		
+		private void attach_Gestionnaires(Gestionnaires entity)
+		{
+			this.SendPropertyChanging();
+			entity.Departements = this;
+		}
+		
+		private void detach_Gestionnaires(Gestionnaires entity)
+		{
+			this.SendPropertyChanging();
+			entity.Departements = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Employes")]
@@ -238,9 +291,9 @@ namespace Travail1Final
 		
 		private bool _état;
 		
-		private bool _gestionnaire;
-		
 		private int _dep;
+		
+		private EntitySet<Gestionnaires> _Gestionnaires;
 		
 		private EntityRef<Departements> _Departements;
 		
@@ -260,14 +313,13 @@ namespace Travail1Final
     partial void OnnumEmpChanged();
     partial void OnétatChanging(bool value);
     partial void OnétatChanged();
-    partial void OngestionnaireChanging(bool value);
-    partial void OngestionnaireChanged();
     partial void OndepChanging(int value);
     partial void OndepChanged();
     #endregion
 		
 		public Employes()
 		{
+			this._Gestionnaires = new EntitySet<Gestionnaires>(new Action<Gestionnaires>(this.attach_Gestionnaires), new Action<Gestionnaires>(this.detach_Gestionnaires));
 			this._Departements = default(EntityRef<Departements>);
 			OnCreated();
 		}
@@ -392,26 +444,6 @@ namespace Travail1Final
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_gestionnaire", DbType="Bit NOT NULL")]
-		public bool gestionnaire
-		{
-			get
-			{
-				return this._gestionnaire;
-			}
-			set
-			{
-				if ((this._gestionnaire != value))
-				{
-					this.OngestionnaireChanging(value);
-					this.SendPropertyChanging();
-					this._gestionnaire = value;
-					this.SendPropertyChanged("gestionnaire");
-					this.OngestionnaireChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dep", DbType="Int NOT NULL")]
 		public int dep
 		{
@@ -433,6 +465,19 @@ namespace Travail1Final
 					this.SendPropertyChanged("dep");
 					this.OndepChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employes_Gestionnaires", Storage="_Gestionnaires", ThisKey="numEmp", OtherKey="idEmploye")]
+		public EntitySet<Gestionnaires> Gestionnaires
+		{
+			get
+			{
+				return this._Gestionnaires;
+			}
+			set
+			{
+				this._Gestionnaires.Assign(value);
 			}
 		}
 		
@@ -466,6 +511,186 @@ namespace Travail1Final
 						this._dep = default(int);
 					}
 					this.SendPropertyChanged("Departements");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Gestionnaires(Gestionnaires entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employes = this;
+		}
+		
+		private void detach_Gestionnaires(Gestionnaires entity)
+		{
+			this.SendPropertyChanging();
+			entity.Employes = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Gestionnaires")]
+	public partial class Gestionnaires : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idEmploye;
+		
+		private int _idDep;
+		
+		private EntityRef<Departements> _Departements;
+		
+		private EntityRef<Employes> _Employes;
+		
+    #region Définitions de méthodes d'extensibilité
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidEmployeChanging(int value);
+    partial void OnidEmployeChanged();
+    partial void OnidDepChanging(int value);
+    partial void OnidDepChanged();
+    #endregion
+		
+		public Gestionnaires()
+		{
+			this._Departements = default(EntityRef<Departements>);
+			this._Employes = default(EntityRef<Employes>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmploye", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int idEmploye
+		{
+			get
+			{
+				return this._idEmploye;
+			}
+			set
+			{
+				if ((this._idEmploye != value))
+				{
+					if (this._Employes.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEmployeChanging(value);
+					this.SendPropertyChanging();
+					this._idEmploye = value;
+					this.SendPropertyChanged("idEmploye");
+					this.OnidEmployeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idDep", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int idDep
+		{
+			get
+			{
+				return this._idDep;
+			}
+			set
+			{
+				if ((this._idDep != value))
+				{
+					if (this._Departements.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidDepChanging(value);
+					this.SendPropertyChanging();
+					this._idDep = value;
+					this.SendPropertyChanged("idDep");
+					this.OnidDepChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Departements_Gestionnaires", Storage="_Departements", ThisKey="idDep", OtherKey="depCode", IsForeignKey=true)]
+		public Departements Departements
+		{
+			get
+			{
+				return this._Departements.Entity;
+			}
+			set
+			{
+				Departements previousValue = this._Departements.Entity;
+				if (((previousValue != value) 
+							|| (this._Departements.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Departements.Entity = null;
+						previousValue.Gestionnaires.Remove(this);
+					}
+					this._Departements.Entity = value;
+					if ((value != null))
+					{
+						value.Gestionnaires.Add(this);
+						this._idDep = value.depCode;
+					}
+					else
+					{
+						this._idDep = default(int);
+					}
+					this.SendPropertyChanged("Departements");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Employes_Gestionnaires", Storage="_Employes", ThisKey="idEmploye", OtherKey="numEmp", IsForeignKey=true)]
+		public Employes Employes
+		{
+			get
+			{
+				return this._Employes.Entity;
+			}
+			set
+			{
+				Employes previousValue = this._Employes.Entity;
+				if (((previousValue != value) 
+							|| (this._Employes.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Employes.Entity = null;
+						previousValue.Gestionnaires.Remove(this);
+					}
+					this._Employes.Entity = value;
+					if ((value != null))
+					{
+						value.Gestionnaires.Add(this);
+						this._idEmploye = value.numEmp;
+					}
+					else
+					{
+						this._idEmploye = default(int);
+					}
+					this.SendPropertyChanged("Employes");
 				}
 			}
 		}

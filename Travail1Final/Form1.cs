@@ -53,11 +53,33 @@ namespace Travail1Final
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(dataContext.DepartementPopulaire().ToList();
-            //textBox1.Text = dataContext.DepartementPopulaire().First().ToString();
             dataGridView1.DataSource = dataContext.DepartementPopulaire().ToList();
-
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataContext.modifierPrenomEmp(int.Parse(textBox1.Text), textBox2.Text);
+                dataContext.SubmitChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataContext.supprimerGestionnaire(int.Parse(textBox3.Text),int.Parse(textBox4.Text));
+                dataContext.SubmitChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
