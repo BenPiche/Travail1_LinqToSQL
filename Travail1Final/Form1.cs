@@ -18,7 +18,7 @@ namespace Travail1Final
             InitializeComponent();
         }
 
-        const string chaine = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\anton\OneDrive\Bureau\Travail1Final\Travail1Final\DB.mdf;Integrated Security=True";
+        const string chaine = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\anton\OneDrive\Documents\GitHub\Travail1_LinqToSQL\Travail1Final\DB.mdf;Integrated Security=True";
 
         DBDataContext dataContext = new DBDataContext(chaine);
 
@@ -58,5 +58,6 @@ namespace Travail1Final
             dataGridView1.DataSource = dataContext.DepartementPopulaire().ToList();
 
         }
+
     }
 }
