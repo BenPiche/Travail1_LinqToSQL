@@ -75,11 +75,23 @@ namespace Travail1Final
             {
                 dataContext.supprimerGestionnaire(int.Parse(textBox3.Text),int.Parse(textBox4.Text));
                 dataContext.SubmitChanges();
+
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var results = from gest in dataContext.Gestionnaires
+                         join emp in dataContext.Employes on gest.idEmploye equals emp.numEmp
+                         join dep in dataContext.Departements on gest.idDep equals dep.depCode
+                         select new { Name = emp.prénom, emp.numEmp, DepartmentName = dep.nom, dep.depCode };
+
+            dataGridView1.DataSource = results.ToList();
         }
     }
 }
